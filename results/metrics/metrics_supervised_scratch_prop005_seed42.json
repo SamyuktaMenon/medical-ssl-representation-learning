@@ -1,0 +1,60 @@
+{
+  "method": "Supervised Scratch",
+  "proportion": 0.05,
+  "seed": 42,
+  "n_samples": 4499,
+  "training_time_sec": 133.02,
+  "val_best_macro_f1": 0.8222,
+  "val_best_accuracy": 0.8242,
+  "test_accuracy": 0.8201,
+  "test_balanced_accuracy": 0.7818,
+  "test_macro_precision": 0.7783,
+  "test_macro_recall": 0.7818,
+  "test_macro_f1": 0.7677,
+  "test_macro_roc_auc": 0.98,
+  "checkpoint_path": "/Users/samyuktamenon/.gemini/antigravity/scratch/medical-ssl-representation-learning/checkpoints/supervised_scratch_prop005_seed42_best.pth",
+  "per_class_f1": [
+    0.9568713450292398,
+    0.9506172839506173,
+    0.5377176015473888,
+    0.9309262166405023,
+    0.8318397469688983,
+    0.625250501002004,
+    0.7944111776447106,
+    0.4453227931488801,
+    0.8363483382414808
+  ],
+  "per_class_precision": [
+    0.9363376251788269,
+    0.9058823529411765,
+    0.4,
+    0.9265625,
+    0.9153132250580046,
+    0.7684729064039408,
+    0.7834645669291339,
+    0.5,
+    0.8688811188811189
+  ],
+  "per_class_recall": [
+    0.9783258594917787,
+    1.0,
+    0.8200589970501475,
+    0.9353312302839116,
+    0.7623188405797101,
+    0.527027027027027,
+    0.805668016194332,
+    0.4014251781472684,
+    0.8061638280616383
+  ],
+  "class_counts": {
+    "0": 468,
+    "1": 476,
+    "2": 518,
+    "3": 520,
+    "4": 400,
+    "5": 609,
+    "6": 394,
+    "7": 470,
+    "8": 644
+  }
+}

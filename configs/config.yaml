@@ -1,0 +1,120 @@
+project:
+  name: "medical-ssl-representation-learning"
+  title: "Self-Supervised Representation Learning for Histopathological Image Classification Under Limited Label Availability"
+  seed: 42
+
+dataset:
+  name: "pathmnist"
+  root_dir: "./data"
+  download: true
+  image_size: 28
+  in_channels: 3
+  num_classes: 9
+  classes:
+    0: "adipose"
+    1: "background"
+    2: "debris"
+    3: "lymphocytes"
+    4: "mucus"
+    5: "smooth_muscle"
+    6: "normal_colon_mucosa"
+    7: "cancer_associated_stroma"
+    8: "colorectal_adenocarcinoma_epithelium"
+
+hardware:
+  device: "auto"  # auto-selects mps, cuda, or cpu
+  num_workers: 0  # 0 avoids IPC shared memory restrictions in sandboxed macOS environments
+  pin_memory: false  # MPS backend does not use pinned memory
+
+label_efficiency:
+  proportions: [0.01, 0.05, 0.10, 1.00]
+  stratified: true
+  seed: 42
+
+augmentations:
+  simclr:
+    crop_scale: [0.6, 1.0]
+    horizontal_flip_p: 0.5
+    vertical_flip_p: 0.5
+    color_jitter:
+      brightness: 0.3
+      contrast: 0.3
+      saturation: 0.3
+      hue: 0.08
+      p: 0.8
+    random_gray_p: 0.0  # Kept 0.0 in primary pipeline to preserve H&E stain biochemistry; used in ablation
+    gaussian_blur:
+      kernel_size: 3
+      sigma: [0.1, 2.0]
+      p: 0.5
+  supervised:
+    random_crop_padding: 2
+    horizontal_flip_p: 0.5
+    vertical_flip_p: 0.5
+    color_jitter:
+      brightness: 0.15
+      contrast: 0.15
+      saturation: 0.15
+      hue: 0.05
+      p: 0.5
+  normalization:
+    mean: [0.7405, 0.5330, 0.7058]  # PathMNIST empirical channel means
+    std: [0.1235, 0.1768, 0.1244]   # PathMNIST empirical channel stds
+
+model:
+  backbone: "resnet18"
+  feature_dim: 512
+  projection_head:
+    hidden_dim: 512
+    output_dim: 128
+
+simclr_pretrain:
+  batch_size: 256
+  epochs: 30
+  temperature: 0.1
+  learning_rate: 0.001
+  min_lr: 0.000001  # 1e-6 minimum cosine learning rate floor
+  weight_decay: 0.0001
+  optimizer: "adamw"
+  scheduler: "cosine"
+  warmup_epochs: 3
+
+downstream:
+  batch_size: 64
+  epochs: 25
+  early_stopping_patience: 6
+  scratch:
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    optimizer: "adamw"
+  imagenet:
+    backbone_lr: 0.0001
+    head_lr: 0.001
+    weight_decay: 0.0001
+    optimizer: "adamw"
+  linear_probe:
+    learning_rate: 0.002
+    weight_decay: 0.00001
+    optimizer: "adamw"
+  finetune:
+    backbone_lr: 0.0001
+    head_lr: 0.001
+    weight_decay: 0.0001
+    optimizer: "adamw"
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "balanced_accuracy"
+    - "macro_precision"
+    - "macro_recall"
+    - "macro_f1"
+    - "macro_roc_auc"
+    - "per_class_metrics"
+    - "confusion_matrix"
+  visualization:
+    tsne_perplexity: 30
+    tsne_n_iter: 1000
+    umap_n_neighbors: 15
+    umap_min_dist: 0.1
+

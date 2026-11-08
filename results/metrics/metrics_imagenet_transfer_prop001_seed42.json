@@ -1,0 +1,60 @@
+{
+  "method": "ImageNet Transfer",
+  "proportion": 0.01,
+  "seed": 42,
+  "n_samples": 899,
+  "training_time_sec": 53.67,
+  "val_best_macro_f1": 0.7739,
+  "val_best_accuracy": 0.7737,
+  "test_accuracy": 0.8024,
+  "test_balanced_accuracy": 0.7456,
+  "test_macro_precision": 0.7477,
+  "test_macro_recall": 0.7456,
+  "test_macro_f1": 0.7449,
+  "test_macro_roc_auc": 0.964,
+  "checkpoint_path": "/Users/samyuktamenon/.gemini/antigravity/scratch/medical-ssl-representation-learning/checkpoints/imagenet_transfer_prop001_seed42_best.pth",
+  "per_class_f1": [
+    0.9538344143456696,
+    0.9859976662777129,
+    0.45662100456621,
+    0.8869426751592356,
+    0.858128078817734,
+    0.6452095808383234,
+    0.7013177159590044,
+    0.42857142857142855,
+    0.7878068091844814
+  ],
+  "per_class_precision": [
+    0.9742790335151987,
+    0.9746251441753172,
+    0.4716981132075472,
+    0.8954983922829582,
+    0.8753768844221106,
+    0.5793010752688172,
+    0.7664,
+    0.4226327944572748,
+    0.7695282289249806
+  ],
+  "per_class_recall": [
+    0.9342301943198804,
+    0.9976387249114522,
+    0.4424778761061947,
+    0.8785488958990536,
+    0.8415458937198068,
+    0.7280405405405406,
+    0.6464237516869096,
+    0.4346793349168646,
+    0.8069748580697486
+  ],
+  "class_counts": {
+    "0": 93,
+    "1": 95,
+    "2": 103,
+    "3": 104,
+    "4": 80,
+    "5": 122,
+    "6": 79,
+    "7": 94,
+    "8": 129
+  }
+}
