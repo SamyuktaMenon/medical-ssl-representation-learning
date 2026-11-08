@@ -383,3 +383,4 @@ elif page == "📖 Clinical Context & Methodology":
             file_name="medical_ssl_technical_report.pdf",
             mime="application/pdf",
         )
+
